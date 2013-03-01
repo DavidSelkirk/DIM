@@ -15,16 +15,8 @@ class TileMap:
                                 if c != " " and c != "\n":
                                         x.append(c)
                         tiles.append(x)
-                #while True:
-                #        c = f.read(1)
-                 #       if not c:
-                 #               print "End of file"
-                  #              break
-                  #      print "Read a character:", c
                         
-
-		for i in range(0, self.rowSize):
-                        print(tiles[i])
+		self.printMap()
 		print "Class created"
 		tiles[2][2] = "This is position (2,2)"
 
