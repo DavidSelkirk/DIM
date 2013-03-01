@@ -3,21 +3,37 @@ tiles = []
 #columnSize = 0
 
 class TileMap:
-	def __init__(self, rSize, cSize):
-		self.rowSize = rSize
-		self.columnSize = cSize
-		for i in range(0, self.rowSize):
+	def __init__(self, filename):
+                f = open(filename)
+                #read the size of the map
+                self.rowSize, self.columnSize = [int(x) for x in f.readline().split()]
+                #read each tile symbol from file
+                for i in range(0, self.rowSize):
 			x = []
 			for j in range(0, self.columnSize):
-				x.append(0)
-				tiles.append(x)
+                                c = f.read(1)
+                                if c != " " and c != "\n":
+                                        x.append(c)
+                        tiles.append(x)
+                #while True:
+                #        c = f.read(1)
+                 #       if not c:
+                 #               print "End of file"
+                  #              break
+                  #      print "Read a character:", c
+                        
+
 		for i in range(0, self.rowSize):
-			print tiles[i]
+                        print(tiles[i])
 		print "Class created"
 		tiles[2][2] = "This is position (2,2)"
 
 	def function(self, i, j):
 		if i < self.rowSize and j < self.columnSize:
-			print tiles[2][2]
+			print (tiles[2][2])
 		else:
 			print "Arguments out of range"
+
+	def printMap(self):
+                for i in range(0, self.rowSize):
+                        print(tiles[i])

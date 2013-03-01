@@ -4,7 +4,7 @@ import TileMap
 # Written by David Selkirk 26/02/13
 
 # Read and instantiate the tilemap
-tilemap = TileMap.TileMap(10, 10)
+tilemap = TileMap.TileMap("Map.txt")
 tilemap.function(2,2)
 # Randomly place items
 
