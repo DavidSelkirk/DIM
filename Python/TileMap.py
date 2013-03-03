@@ -31,3 +31,12 @@ class TileMap:
                 for i in range(0, self.rowSize):
                         print(tiles[i])
                 print
+
+        def movePlayer(self, p, direction):
+                if(direction == "up" and tiles[p.xPos+1][p.yPos] != "W"):
+                        p.xPos -= 1
+                if(direction == "down" and tiles[p.xPos+1][p.yPos] != "W"):
+                        p.xPos += 1
+                        print "Here"
+                self.populateMap(p)
+                self.printMap()
