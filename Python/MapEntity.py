@@ -10,21 +10,21 @@ class Tile(MapEntity):
 		self.passable = "false" #can players walk through this
 
 class Character(Tile):
-        def __init__(self, i):
+        def __init__(self):
                 Tile.__init__(self)
                 self.health = 2
                 
 
-class Player(Tile):
+class Player(Character):
         def __init__(self, i):
-                Tile.__init__(self)
+                Character.__init__(self)
                 self.health = 5
                 self.playerNumber = i;
                 self.mapImage = "P"+str(i)
 
-class Zombie(Tile):
+class Zombie(Character):
         def __init__(self, i, x, y):
-                Tile.__init__(self)
+                Character.__init__(self)
                 self.playerNumber = i;
                 self.mapImage = "Z"+str(i)
                 #print "zombie x " + str(x) + " zombie y " + str(y)

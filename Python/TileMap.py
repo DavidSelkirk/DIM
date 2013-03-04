@@ -66,6 +66,9 @@ class TileMap:
                 if not direction in moves:
                         print "Not a legal move"
                         return
+                if(direction.startswith("attack")):
+                        zombie.health -= 1
+                        print "Zombie health now: " + str(zombie.health)
                 #up
                 if(direction == "up" and self.getPassable(p.xPos-1, p.yPos) == 1):
                         p.xPos -= 1
@@ -88,16 +91,27 @@ class TileMap:
                 moveList = []
                 #up
                 if(p.xPos - 1 >= 0  and self.tiles[p.xPos-1][p.yPos] != "W"):
-                        moveList.append("up")
+                        if(self.tiles[p.xPos-1][p.yPos].split()[0][0] == "Z"):
+                                moveList.append("attack " + str(self.tiles[p.xPos-1][p.yPos]))
+                        else:
+                                moveList.append("up")
                 #down
                 if(p.xPos + 1 < self.rowSize and self.tiles[p.xPos+1][p.yPos] != "W"):
-                        moveList.append("down")
+                        if(self.tiles[p.xPos+1][p.yPos].split()[0][0] == "Z"):
+                                moveList.append("attack " + str(self.tiles[p.xPos+1][p.yPos]))
+                        else:
+                                moveList.append("down")
                 #left
                 if(p.yPos - 1 >= 0 and self.tiles[p.xPos][p.yPos-1] != "W"):
-                        moveList.append("left")
+                        if(self.tiles[p.xPos][p.yPos-1].split()[0][0] == "Z"):
+                                moveList.append("attack " + str(self.tiles[p.xPos][p.yPos-1]))
+                        else:
+                                moveList.append("left")
                 #right
-                #print str(p.yPos + 1) + " " + str(self.columnSize)
                 if(p.yPos + 1 < self.columnSize and self.tiles[p.xPos][p.yPos+1] != "W"):
-                        moveList.append("right")
+                        if(self.tiles[p.xPos][p.yPos+1].split()[0][0] == "Z"):
+                                moveList.append("attack " + str(self.tiles[p.xPos][p.yPos+1]))
+                        else:
+                                moveList.append("right")
                         
                 return moveList
