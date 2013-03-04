@@ -51,7 +51,8 @@ class TileMap:
                 self.tiles = self.copy(self.backgroundTiles)
                 self.tiles[p.xPos][p.yPos] = p.mapImage
                 #print z.xPos, z.yPos
-                self.tiles[z.xPos][z.yPos] = z.mapImage
+                if(z.health > 0):
+                        self.tiles[z.xPos][z.yPos] = z.mapImage
                 self.printMap()
                 #self.printMap()
 

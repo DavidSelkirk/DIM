@@ -30,3 +30,7 @@ while d != "q":
       print "List of avaliable actions: " + str(actions)
       d = raw_input("Choose action: ")
 
+
+      
+            
+
