@@ -1,4 +1,6 @@
 import MapEntity
+import math
+from random import randint
 #tiles = []
 #backgroundTiles = [];
 #rowSize = 0
@@ -66,7 +68,8 @@ class TileMap:
         def movePlayer(self, p, zombie, moves, direction):
                 if not direction in moves:
                         print "Not a legal move"
-                        return
+                        print "returning zero"
+                        return 0
                 if(direction.startswith("attack")):
                         zombie.health -= 1
                         print "Zombie health now: " + str(zombie.health)
@@ -84,9 +87,22 @@ class TileMap:
                         p.yPos += 1
                 self.populateMap(p, zombie)
 
+        def moveZombie(self, zombie):
+                x = randint(-1, 1)
+                y = randint(-1, 1)
+                while(self.getPassable(zombie.xPos + x, zombie.yPos + y) == 0 or math.fabs(x+y) != 1):
+                        x = randint(-1, 1)
+                        y = randint(-1, 1)
+                print zombie.xPos, zombie.yPos, x, y
+                zombie.xPos += x
+                zombie.yPos += y
+
         def getPassable(self, x, y):
-                if(self.tiles[x][y] != "W" and (self.tiles[x][y]).split()[0][0] != "Z"):
-                        return 1
+                if(x >= 0 and x < self.rowSize and y >=0 and y < self.columnSize):
+                        if(self.tiles[x][y] != "W" and (self.tiles[x][y]).split()[0][0] != "Z"):
+                                return 1
+                print "BAD"
+                return 0
 
         def getPlayerMoves(self, p):
                 moveList = []

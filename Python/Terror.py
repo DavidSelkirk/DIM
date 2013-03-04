@@ -24,9 +24,13 @@ actions = tilemap.getPlayerMoves(player)
 print "List of avaliable actions: " + str(actions)
 d = raw_input("Choose action: ")
 while d != "q":
-      tilemap.movePlayer(player, zombie, actions, d)
+      while(tilemap.movePlayer(player, zombie, actions, d) == 0):
+            print "List of avaliable actions: " + str(actions)
+            d = raw_input("Choose action: ")
+            actions = tilemap.getPlayerMoves(player)
       #print out avaliable game commands
       actions = tilemap.getPlayerMoves(player)
+      tilemap.moveZombie(zombie)
       print "List of avaliable actions: " + str(actions)
       d = raw_input("Choose action: ")
 
