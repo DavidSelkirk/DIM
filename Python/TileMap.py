@@ -1,5 +1,4 @@
 import MapEntity
-
 #tiles = []
 #backgroundTiles = [];
 #rowSize = 0
@@ -31,8 +30,6 @@ class TileMap:
                         self.tiles.append(x)
                         #print "Next row"
                         #print
-
-
                 self.backgroundTiles = self.copy(self.tiles)
 
         def initLegalTiles(self): #base background tiles
@@ -47,13 +44,14 @@ class TileMap:
                         x = source[i][:]
                         temp.append(x)
                 return temp
-
-                        
-        def populateMap(self, p):
+                
+        def populateMap(self, p, z):
                 #for p in players:
                 #set player position
                 self.tiles = self.copy(self.backgroundTiles)
                 self.tiles[p.xPos][p.yPos] = p.mapImage
+                #print z.xPos, z.yPos
+                self.tiles[z.xPos][z.yPos] = z.mapImage
                 self.printMap()
                 #self.printMap()
 
@@ -64,23 +62,27 @@ class TileMap:
                         print(self.tiles[i])
                 print
 
-        def movePlayer(self, p, moves, direction):
+        def movePlayer(self, p, zombie, moves, direction):
                 if not direction in moves:
                         print "Not a legal move"
                         return
                 #up
-                if(direction == "up" and self.tiles[p.xPos-1][p.yPos] != "W"):
+                if(direction == "up" and self.getPassable(p.xPos-1, p.yPos) == 1):
                         p.xPos -= 1
                 #down
-                if(direction == "down" and self.tiles[p.xPos+1][p.yPos] != "W"):
+                if(direction == "down" and self.getPassable(p.xPos+1, p.yPos) == 1):
                         p.xPos += 1
                 #left
-                if(direction == "left" and self.tiles[p.xPos][p.yPos-1] != "W"):
+                if(direction == "left" and self.getPassable(p.xPos,p.yPos-1) == 1):
                         p.yPos -= 1
                 #right
-                if(direction == "right" and self.tiles[p.xPos][p.yPos+1] != "W"):
+                if(direction == "right" and self.getPassable(p.xPos,p.yPos+1) == 1):
                         p.yPos += 1
-                self.populateMap(p)
+                self.populateMap(p, zombie)
+
+        def getPassable(self, x, y):
+                if(self.tiles[x][y] != "W" and (self.tiles[x][y]).split()[0][0] != "Z"):
+                        return 1
 
         def getPlayerMoves(self, p):
                 moveList = []
@@ -94,7 +96,7 @@ class TileMap:
                 if(p.yPos - 1 >= 0 and self.tiles[p.xPos][p.yPos-1] != "W"):
                         moveList.append("left")
                 #right
-                print str(p.yPos + 1) + " " + str(self.columnSize)
+                #print str(p.yPos + 1) + " " + str(self.columnSize)
                 if(p.yPos + 1 < self.columnSize and self.tiles[p.xPos][p.yPos+1] != "W"):
                         moveList.append("right")
                         
