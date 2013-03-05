@@ -1,6 +1,19 @@
 <HTML>
 <HEADER><TITLE>Terror Game</TITLE></HEADER>
 <BODY>
-GAME PAGE
+Game
+{% if tiles %}
+        <p>
+        {% for tile in tiles %}
+		{% for t in tile %}
+               		 {{ t }}
+		{% endfor %}
+	<br>
+        {% endfor %}
+        </p>
+{% else %}
+        <P>Error - no game map.</P>
+{% endif %}
+
 </BODY>
 </HTML>
