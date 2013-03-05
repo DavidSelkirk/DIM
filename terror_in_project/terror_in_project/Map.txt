@@ -1,0 +1,11 @@
+10 5
+X X X X X 
+X X W X X 
+X X W X X 
+X X W W W 
+X X X X X 
+X X X X X 
+X X X X X 
+X X X X X 
+X X X X X 
+X X X X X 
