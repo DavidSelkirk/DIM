@@ -1,0 +1,7 @@
+<HTML>
+<HEADER><TITLE>Terror</TITLE></HEADER>
+<BODY>
+Terror says: Hello World y'all!
+<IMG SRC="{{ STATIC_URL }}imgs/zombie.jpg" />
+</BODY>
+</HTML>
