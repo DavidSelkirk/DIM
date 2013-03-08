@@ -33,17 +33,24 @@ def game(request):
 		if form.is_valid():
 			direction = form.cleaned_data['move']
 			moves = tilemap.getPlayerMoves(player)
-			tilemap.movePlayer(player, zombie, moves, direction)
+			tilemap.movePlayer(player, zombie, moves, getMove(request))
 			tilemap.populateMap(player, zombie)
 		tiles = tilemap.tiles
-		context = RequestContext(request, {'tiles' : tiles})
-		form = GameForm(request.POST)
+		moves = tilemap.getPlayerMoves(player)
+		context = RequestContext(request, {'tiles' : tiles, 'moves' : moves})
+		form = GameForm()
 		return render_to_response('terror/game.html', {'form': form }, context)
 	else:
 		tilemap.populateMap(player, zombie)
 		form = GameForm()
 	tiles = tilemap.tiles
-        context = RequestContext(request, {'tiles' : tiles})
+	moves = tilemap.getPlayerMoves(player)
+        context = RequestContext(request, {'tiles' : tiles, 'moves' : moves})
 		
         # render the template using the provided context and return as http response.
         return render_to_response('terror/game.html', {'form': form }, context)
+
+def getMove(request):
+	if 'right' in request.POST:
+		return "right"
+	return "down"

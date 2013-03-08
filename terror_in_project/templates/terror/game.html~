@@ -7,6 +7,7 @@ Game
         {% for tile in tiles %}
 		{% for t in tile %}
                		 {{ t }}
+			<IMG SRC="{{ STATIC_URL }}imgs/{{t}}.jpg" />
 		{% endfor %}
 	<br>
         {% endfor %}
@@ -14,6 +15,32 @@ Game
 {% else %}
         <P>Error - no game map.</P>
 {% endif %}
+{% if moves %}
+        <p>
+	Avaliable moves: 
+        {% for m in moves %}
+		{% if forloop.last %}
+			{{ m }}
+		{% else %}
+               		{{ m }},
+		{% endif %}.
+        {% endfor %}
+        </p>
+{% else %}
+        <P>Error - no moves.</P>
+{% endif %}
+<FORM id="move_form" method="post" action="">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                        {% endfor %}
 
+                {% for field in form.visible_fields %}
+                        {{ field.errors }}
+                        {{ field.help_text}}
+                        {{ field }}
+                {% endfor %}
+                <INPUT type="submit" name="submit" value="submit" />
+</FORM>
 </BODY>
 </HTML>
