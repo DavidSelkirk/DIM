@@ -3,6 +3,6 @@ from django.conf.urls import patterns, url
 from terror import views
 
 urlpatterns = patterns('',
-        url(r'^$', views.index, name='index'),
-	url(r'^$', views.game, name='game')
+        url(r'^terror$', views.index, name='index'),
+	url(r'^terror/game/$', views.game, name='game')
 )

@@ -6,5 +6,5 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
         url(r'^terror/', include('terror.urls')),
-	url(r'^game/', include('terror.urls')),
+	url(r'^terror/game/', include('terror.urls')),
         )
