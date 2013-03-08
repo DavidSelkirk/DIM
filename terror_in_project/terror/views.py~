@@ -1,8 +1,14 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.template import RequestContext, loader
+from django.shortcuts import render_to_response
+from models import GameForm
 from MapEntity import *
 import TileMap
+
+tilemap = TileMap.TileMap("/users/level3/1003646s/work/DIM3/DIM/terror_in_project/terror/Map.txt")
+player = Player(1)
+zombie = Zombie(1, 1, 3)
 
 def index(request):
         # select the appropriate template to use
@@ -17,38 +23,27 @@ def index(request):
 def game(request):
         # select the appropriate template to use
         template = loader.get_template('terror/game.html')
-	# create and define the context. We don't have any context at the moment
+        # create and define the context. We don't have any context at the moment
         # but later on we will be putting data in the context which the template engine
         # will use when it renders the template into a page.
-	context = RequestContext(request)
-        if request.method == 'POST':
-		# data has been entered into the form via Post
-                form = GameForm(request.POST)
+	#create the TileMap
+	if request.method == 'POST':
+		print "In POST"
+		form = GameForm(request.POST)
 		if form.is_valid():
-                        # the form has been correctly filled in,
-                        # so lets save the data to the model
-                        cat = form.save(commit=True)
-			#move sent so just populate
+			direction = form.cleaned_data['move']
+			moves = tilemap.getPlayerMoves(player)
+			tilemap.movePlayer(player, zombie, moves, direction)
 			tilemap.populateMap(player, zombie)
-			tiles = tilemap.tiles
-        		context = RequestContext(request, {'tiles' : tiles})
-                        # show the index page with the list of categories
-                        return game(request)
-                else:
-                        # the form contains errors,
-                        # show the form again, with error messages
-                        pass
-	else: #no move sent, assume it's first load
-		form = GameForm()
-		tilemap = TileMap.TileMap("/users/level3/1003646s/work/DIM3/DIM/terror_in_project/terror/Map.txt")
-		player = Player(1)
-		zombie = Zombie(1, 1, 3)
-		tilemap.populateMap(player, zombie)
 		tiles = tilemap.tiles
-        	context = RequestContext(request, {'tiles' : tiles})
+		context = RequestContext(request, {'tiles' : tiles})
+		form = GameForm(request.POST)
+		return render_to_response('terror/game.html', {'form': form }, context)
+	else:
+		tilemap.populateMap(player, zombie)
 		form = GameForm()
+	tiles = tilemap.tiles
+        context = RequestContext(request, {'tiles' : tiles})
+		
         # render the template using the provided context and return as http response.
-        rreturn render_to_response('game.html',
-                {'form': form , 'tiles' : tiles}, context)
-
-
+        return render_to_response('terror/game.html', {'form': form }, context)

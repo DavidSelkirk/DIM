@@ -14,6 +14,18 @@ Game
 {% else %}
         <P>Error - no game map.</P>
 {% endif %}
+<FORM id="move_form" method="post" action="">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                        {% endfor %}
 
+                {% for field in form.visible_fields %}
+                        {{ field.errors }}
+                        {{ field.help_text}}
+                        {{ field }}
+                {% endfor %}
+                <INPUT type="submit" name="submit" value="submit" />
+</FORM>
 </BODY>
 </HTML>

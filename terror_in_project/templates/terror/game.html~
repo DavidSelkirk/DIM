@@ -8,6 +8,7 @@ Game
 		{% for t in tile %}
                		 {{ t }}
 		{% endfor %}
+	<br>
         {% endfor %}
         </p>
 {% else %}
