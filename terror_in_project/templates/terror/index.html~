@@ -2,7 +2,7 @@
 <HEADER><TITLE>Terror</TITLE></HEADER>
 <BODY>
 Terror says: Hello World y'all!
-<a href="http://127.0.0.1:8000/terror/game">Game page</a>
+<a href="http://127.0.0.1:8000/terror/game">Begin game!</a>
 <IMG SRC="{{ STATIC_URL }}imgs/zombie.jpg" />
 </BODY>
 </HTML>
